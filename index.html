@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080d19">
+  <title>EMBROX AI FILM STUDIO</title>
+  <style>
+    body {
+      margin: 0;
+      background: #080d19;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    header {
+      padding: 35px 15px;
+      background: #111c30;
+    }
+    h1 { color: #d5ae67; }
+    button {
+      background: #d5ae67;
+      color: #080d19;
+      border: none;
+      border-radius: 12px;
+      padding: 15px 25px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    main { padding: 30px 20px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎬 EMBROX</h1>
+    <h2>AI FILM STUDIO</h2>
+    <p>HYBRID PRO EDITION</p>
+  </header>
+
+  <main>
+    <h2>Welcome to Your Film Studio</h2>
+    <p>AI Film Director + Professional Editor</p>
+    <button onclick="startProject()">
+      + New Film Project
+    </button>
+    <p id="status"></p>
+  </main>
+
+  <script>
+    function startProject() {
+      document.getElementById("status").textContent =
+        "Film projesi oluşturma özelliği yakında!";
+    }
+  </script>
+</body>
+</html>
