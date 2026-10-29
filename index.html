@@ -12,7 +12,7 @@
 <style>
 :root{
   --bg:#0a1226; --bg2:#101b38; --card:#14213f; --line:#26365f;
-  --gold:#d4af37; --gold2:#f0d77a; --text:#eef1f8; --mute:#93a0c0; --danger:#e5726b;
+  --gold:#d4af37; --gold2:#f0d77a; --text:#eef1f8; --mute:#93a0c0; --danger:#e5726b; --ok:#7fd6a0;
   --serif:"Iowan Old Style","Palatino Linotype",Georgia,serif;
   --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;
 }
@@ -32,7 +32,7 @@ body{min-height:100vh;min-height:100dvh;padding:env(safe-area-inset-top,0px) env
 .btn-gold:active{transform:scale(.98)}
 .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
 .btn-danger{background:transparent;color:var(--danger);border:1px solid #5a2f35}
-.btn:focus-visible,.chip:focus-visible,.fmt:focus-visible,.proj:focus-visible,.back:focus-visible,input:focus-visible{outline:2px solid var(--gold2);outline-offset:2px}
+.btn:focus-visible,.chip:focus-visible,.fmt:focus-visible,.proj:focus-visible,.back:focus-visible,.ib:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--gold2);outline-offset:2px}
 
 .hero{margin:18px 0 26px;padding:22px 18px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(160deg,var(--bg2),var(--card))}
 .hero h2{margin:0 0 6px;font-family:var(--serif);font-size:24px;font-weight:600}
@@ -56,8 +56,9 @@ body{min-height:100vh;min-height:100dvh;padding:env(safe-area-inset-top,0px) env
 h2.page{margin:6px 0 18px;font-family:var(--serif);font-size:26px;font-weight:600}
 .field{margin-bottom:22px}
 .field>label,.field>.lbl{display:block;font-size:14px;color:var(--mute);margin-bottom:8px}
-input[type=text]{width:100%;font:inherit;font-size:16px;color:var(--text);background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:14px}
-input[type=text]::placeholder{color:#5f6d92}
+input[type=text],input[type=number],textarea{width:100%;font:inherit;font-size:16px;color:var(--text);background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:14px}
+textarea{min-height:96px;resize:vertical;line-height:1.45}
+input::placeholder,textarea::placeholder{color:#5f6d92}
 .err{color:var(--danger);font-size:13px;margin-top:6px;min-height:16px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{appearance:none;font:inherit;font-size:15px;color:var(--text);background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:10px 15px;cursor:pointer}
@@ -76,14 +77,39 @@ input[type=range]{width:100%;accent-color:var(--gold);height:34px}
 
 .stage-wrap{display:flex;justify-content:center;margin:6px 0 18px}
 .stage{border:1.5px solid var(--gold);border-radius:10px;background:linear-gradient(160deg,#111d3c,#0a1226);display:flex;align-items:center;justify-content:center;color:var(--mute);font-size:13px;text-align:center;padding:10px}
-.stage.r169{width:100%;aspect-ratio:16/9}
-.stage.r916{width:56%;max-width:230px;aspect-ratio:9/16}
-.facts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.stage.r169{width:100%;max-width:340px;aspect-ratio:16/9}
+.stage.r916{width:44%;max-width:170px;aspect-ratio:9/16}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px}
 .fact{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
 .fact b{display:block;font-size:12px;color:var(--mute);font-weight:500;margin-bottom:4px}
 .fact span{font-size:16px;font-weight:600}
-.note{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:14px;color:var(--mute);font-size:14px;line-height:1.55;margin-bottom:18px}
+.note{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:14px;color:var(--mute);font-size:14px;line-height:1.55;margin:18px 0}
 .stack{display:flex;flex-direction:column;gap:10px}
+
+/* Sahne planlayıcı */
+.plan{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:14px}
+.plan-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:10px}
+.plan-top strong{font-size:16px}
+.plan-top span{font-size:13px;color:var(--mute);text-align:right}
+.bar{height:10px;border-radius:999px;background:var(--bg);border:1px solid var(--line);overflow:hidden}
+.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold2))}
+.bar.over>i{background:var(--danger)}
+.plan-state{margin-top:8px;font-size:13px;color:var(--mute)}
+.plan-state.ok{color:var(--ok)}
+.plan-state.over{color:var(--danger)}
+.scenes{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.scene{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px}
+.scene-head{display:flex;align-items:flex-start;gap:12px}
+.num{flex:none;width:30px;height:30px;border-radius:50%;background:var(--bg);border:1.5px solid var(--gold);color:var(--gold2);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+.scene-info{min-width:0;flex:1}
+.scene-title{font-weight:600;font-size:16px;overflow-wrap:anywhere}
+.scene-desc{color:var(--mute);font-size:14px;line-height:1.45;margin-top:4px;overflow-wrap:anywhere}
+.scene-sec{flex:none;color:var(--gold2);font-weight:600;font-size:14px}
+.scene-actions{display:flex;gap:8px;margin-top:10px;justify-content:flex-end}
+.ib{appearance:none;font:inherit;font-size:14px;color:var(--text);background:var(--bg2);border:1px solid var(--line);border-radius:10px;min-width:44px;height:40px;padding:0 12px;cursor:pointer}
+.ib:disabled{opacity:.35;cursor:default}
+.ib.del{color:var(--danger);border-color:#5a2f35}
+
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--gold);color:#1a1405;padding:11px 18px;border-radius:999px;font-weight:600;font-size:15px;box-shadow:0 8px 24px rgba(0,0,0,.4);z-index:50}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
@@ -94,7 +120,7 @@ input[type=range]{width:100%;accent-color:var(--gold);height:34px}
   <main id="viewHome">
     <header class="brand">
       <h1>🎬 EMBROX</h1>
-      <p>AI Film Studio · Hybrid Pro Edition · V1.1</p>
+      <p>AI Film Studio · Hybrid Pro Edition · V1.2</p>
     </header>
 
     <section class="hero">
@@ -150,10 +176,40 @@ input[type=range]{width:100%;accent-color:var(--gold);height:34px}
       <div class="fact"><b>Format</b><span id="pFmt"></span></div>
       <div class="fact"><b>Oluşturulma</b><span id="pDate"></span></div>
     </div>
-    <div class="note">Bu proje kayıtlı. Senaryo, sahne planı ve zaman çizelgesi sonraki sürümlerde buraya eklenecek. Bu sürümde gerçek yapay zekâ video üretimi yoktur.</div>
+
+    <div class="sec-title"><h3>Sahne planı</h3><span id="sceneCount"></span></div>
+    <div class="plan">
+      <div class="plan-top"><strong id="planTotal"></strong><span id="planTarget"></span></div>
+      <div class="bar" id="planBar"><i id="planFill"></i></div>
+      <div class="plan-state" id="planState"></div>
+    </div>
+    <div class="scenes" id="sceneList"></div>
+    <button class="btn btn-gold" id="btnAddScene" type="button">Sahne ekle</button>
+
+    <div class="note">Senaryo üretimi ve zaman çizelgesi sonraki sürümlerde eklenecek. Bu sürümde gerçek yapay zekâ video üretimi yoktur.</div>
     <div class="stack">
       <button class="btn btn-danger" id="btnDelete" type="button">Projeyi sil</button>
     </div>
+  </section>
+
+  <section id="viewScene" class="hidden">
+    <button class="back" id="btnSceneCancel" type="button">‹ Sahne planı</button>
+    <h2 class="page" id="sceneFormTitle">Yeni sahne</h2>
+
+    <div class="field">
+      <label for="sTitle">Sahne başlığı</label>
+      <input type="text" id="sTitle" maxlength="80" placeholder="Örn. İstasyonda bekleyiş" autocomplete="off">
+      <div class="err" id="errScene"></div>
+    </div>
+    <div class="field">
+      <label for="sDesc">Ne oluyor? (isteğe bağlı)</label>
+      <textarea id="sDesc" maxlength="400" placeholder="Karakterler, mekân, kamera, ses..."></textarea>
+    </div>
+    <div class="field">
+      <label for="sSec">Süre (saniye)</label>
+      <input type="number" id="sSec" inputmode="numeric" min="1" max="3600" step="1" value="5">
+    </div>
+    <button class="btn btn-gold" id="btnSceneSave" type="button">Sahneyi kaydet</button>
   </section>
 
 </div>
@@ -165,11 +221,12 @@ input[type=range]{width:100%;accent-color:var(--gold);height:34px}
   var KEY = 'embrox.projects.v1';
   var GENRES = ['3D Animasyon','Gerçekçi Sinema','Bilim Kurgu','Korku','Macera','Müzik Klibi'];
   var memoryStore = null;
-  var state = { genre: GENRES[0], format: '16:9', currentId: null };
+  var state = { genre: GENRES[0], format: '16:9', currentId: null, editingScene: null };
 
   var $ = function(id){ return document.getElementById(id); };
-  var views = { home: $('viewHome'), create: $('viewCreate'), project: $('viewProject') };
+  var views = { home: $('viewHome'), create: $('viewCreate'), project: $('viewProject'), scene: $('viewScene') };
 
+  /* ---------- Depolama ---------- */
   function load(){
     try{
       var raw = localStorage.getItem(KEY);
@@ -189,9 +246,33 @@ input[type=range]{width:100%;accent-color:var(--gold);height:34px}
       return false;
     }
   }
+  function getProject(id){
+    var p = load().filter(function(x){ return x.id === id; })[0];
+    if(p && !Array.isArray(p.scenes)) p.scenes = [];
+    return p || null;
+  }
+  function updateProject(id, fn){
+    var list = load();
+    for(var i = 0; i < list.length; i++){
+      if(list[i].id === id){
+        if(!Array.isArray(list[i].scenes)) list[i].scenes = [];
+        fn(list[i]);
+        list[i].updatedAt = Date.now();
+        return save(list);
+      }
+    }
+    return false;
+  }
 
+  /* ---------- Yardımcılar ---------- */
   function uid(){ return 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
   function fmtDur(m){ return m + ' dakika'; }
+  function fmtSec(s){
+    s = Math.max(0, Math.round(s));
+    var m = Math.floor(s / 60), r = s % 60;
+    if(!m) return r + ' sn';
+    return r ? (m + ' dk ' + r + ' sn') : (m + ' dk');
+  }
   function fmtDate(ts){
     try{ return new Date(ts).toLocaleDateString('tr-TR',{day:'numeric',month:'short',year:'numeric'}); }
     catch(e){ return ''; }
@@ -207,41 +288,42 @@ input[type=range]{width:100%;accent-color:var(--gold);height:34px}
     for(var k in views){ views[k].classList.toggle('hidden', k !== name); }
     window.scrollTo(0,0);
   }
+  function el(tag, cls, text){
+    var n = document.createElement(tag);
+    if(cls) n.className = cls;
+    if(text != null) n.textContent = text;
+    return n;
+  }
 
+  /* ---------- Ana ekran ---------- */
   function renderList(){
     var list = load().sort(function(a,b){ return (b.updatedAt||0) - (a.updatedAt||0); });
     var box = $('projList');
     box.textContent = '';
     $('count').textContent = list.length ? list.length + ' proje' : '';
     if(!list.length){
-      var e = document.createElement('div');
-      e.className = 'empty';
-      e.textContent = 'Henüz proje yok. New Film Project düğmesiyle ilk filmini oluştur.';
-      box.appendChild(e);
+      box.appendChild(el('div','empty','Henüz proje yok. New Film Project düğmesiyle ilk filmini oluştur.'));
       return;
     }
     list.forEach(function(p){
-      var b = document.createElement('button');
-      b.type = 'button'; b.className = 'proj';
-      var tb = document.createElement('div'); tb.className = 'thumb-box';
-      var th = document.createElement('div'); th.className = 'thumb ' + ratioClass(p.format);
-      tb.appendChild(th);
-      var info = document.createElement('div'); info.className = 'proj-info';
-      var n = document.createElement('div'); n.className = 'proj-name'; n.textContent = p.name;
-      var m = document.createElement('div'); m.className = 'proj-meta';
-      m.textContent = p.genre + ' · ' + p.duration + ' dk · ' + p.format;
-      info.appendChild(n); info.appendChild(m);
+      var b = el('button','proj'); b.type = 'button';
+      var tb = el('div','thumb-box');
+      tb.appendChild(el('div','thumb ' + ratioClass(p.format)));
+      var info = el('div','proj-info');
+      info.appendChild(el('div','proj-name',p.name));
+      var n = Array.isArray(p.scenes) ? p.scenes.length : 0;
+      info.appendChild(el('div','proj-meta', p.genre + ' · ' + p.duration + ' dk · ' + p.format + (n ? ' · ' + n + ' sahne' : '')));
       b.appendChild(tb); b.appendChild(info);
       b.addEventListener('click', function(){ openProject(p.id); });
       box.appendChild(b);
     });
   }
 
+  /* ---------- Oluşturma formu ---------- */
   function buildGenres(){
     var box = $('genres'); box.textContent = '';
     GENRES.forEach(function(g){
-      var c = document.createElement('button');
-      c.type = 'button'; c.className = 'chip'; c.textContent = g;
+      var c = el('button','chip',g); c.type = 'button';
       c.setAttribute('aria-pressed', g === state.genre ? 'true' : 'false');
       c.addEventListener('click', function(){
         state.genre = g;
@@ -276,15 +358,16 @@ input[type=range]{width:100%;accent-color:var(--gold);height:34px}
     var p = {
       id: uid(), name: name, genre: state.genre,
       duration: parseInt($('fDur').value, 10) || 1,
-      format: state.format, createdAt: now, updatedAt: now
+      format: state.format, scenes: [], createdAt: now, updatedAt: now
     };
     var list = load(); list.push(p);
     if(save(list)){ toast('Proje kaydedildi'); }
     openProject(p.id);
   }
 
+  /* ---------- Proje ekranı ---------- */
   function openProject(id){
-    var p = load().filter(function(x){ return x.id === id; })[0];
+    var p = getProject(id);
     if(!p){ renderList(); show('home'); return; }
     state.currentId = id;
     $('pName').textContent = p.name;
@@ -293,27 +376,146 @@ input[type=range]{width:100%;accent-color:var(--gold);height:34px}
     $('pFmt').textContent = p.format;
     $('pDate').textContent = fmtDate(p.createdAt);
     $('pStage').className = 'stage ' + ratioClass(p.format);
+    renderScenes(p);
     show('project');
   }
+
+  function renderScenes(p){
+    var scenes = p.scenes || [];
+    var total = scenes.reduce(function(a,s){ return a + (s.seconds || 0); }, 0);
+    var target = p.duration * 60;
+    var pct = target ? Math.min(100, (total / target) * 100) : 0;
+
+    $('sceneCount').textContent = scenes.length ? scenes.length + ' sahne' : '';
+    $('planTotal').textContent = 'Toplam ' + fmtSec(total);
+    $('planTarget').textContent = 'Hedef ' + fmtSec(target);
+    $('planFill').style.width = pct + '%';
+    var state_ = $('planState');
+    var over = total > target;
+    $('planBar').classList.toggle('over', over);
+    state_.className = 'plan-state';
+    if(!scenes.length){
+      state_.textContent = 'Henüz sahne yok. İlk sahneyi ekle.';
+    }else if(over){
+      state_.textContent = 'Hedefi ' + fmtSec(total - target) + ' aşıyor.';
+      state_.classList.add('over');
+    }else if(total === target){
+      state_.textContent = 'Hedef süre tamam.';
+      state_.classList.add('ok');
+    }else{
+      state_.textContent = 'Hedefe ' + fmtSec(target - total) + ' kaldı.';
+    }
+
+    var box = $('sceneList'); box.textContent = '';
+    scenes.forEach(function(s, i){
+      var card = el('div','scene');
+      var head = el('div','scene-head');
+      head.appendChild(el('div','num', String(i + 1)));
+      var info = el('div','scene-info');
+      info.appendChild(el('div','scene-title', s.title));
+      if(s.desc) info.appendChild(el('div','scene-desc', s.desc));
+      head.appendChild(info);
+      head.appendChild(el('div','scene-sec', fmtSec(s.seconds)));
+      card.appendChild(head);
+
+      var acts = el('div','scene-actions');
+      var up = el('button','ib','↑'); up.type = 'button'; up.setAttribute('aria-label','Yukarı taşı'); up.disabled = (i === 0);
+      var dn = el('button','ib','↓'); dn.type = 'button'; dn.setAttribute('aria-label','Aşağı taşı'); dn.disabled = (i === scenes.length - 1);
+      var ed = el('button','ib','Düzenle'); ed.type = 'button';
+      var de = el('button','ib del','Sil'); de.type = 'button';
+      up.addEventListener('click', function(){ moveScene(s.id, -1); });
+      dn.addEventListener('click', function(){ moveScene(s.id, 1); });
+      ed.addEventListener('click', function(){ openSceneForm(s.id); });
+      de.addEventListener('click', function(){ deleteScene(s.id); });
+      acts.appendChild(up); acts.appendChild(dn); acts.appendChild(ed); acts.appendChild(de);
+      card.appendChild(acts);
+      box.appendChild(card);
+    });
+  }
+
+  function moveScene(sceneId, dir){
+    updateProject(state.currentId, function(p){
+      var i = -1;
+      for(var k = 0; k < p.scenes.length; k++){ if(p.scenes[k].id === sceneId){ i = k; break; } }
+      var j = i + dir;
+      if(i < 0 || j < 0 || j >= p.scenes.length) return;
+      var tmp = p.scenes[i]; p.scenes[i] = p.scenes[j]; p.scenes[j] = tmp;
+    });
+    renderScenes(getProject(state.currentId));
+  }
+
+  function deleteScene(sceneId){
+    if(!confirm('Bu sahne silinsin mi?')) return;
+    updateProject(state.currentId, function(p){
+      p.scenes = p.scenes.filter(function(s){ return s.id !== sceneId; });
+    });
+    renderScenes(getProject(state.currentId));
+    toast('Sahne silindi');
+  }
+
+  /* ---------- Sahne formu ---------- */
+  function openSceneForm(sceneId){
+    var p = getProject(state.currentId);
+    if(!p) return;
+    state.editingScene = sceneId || null;
+    var s = sceneId ? p.scenes.filter(function(x){ return x.id === sceneId; })[0] : null;
+    $('sceneFormTitle').textContent = s ? 'Sahneyi düzenle' : 'Yeni sahne';
+    $('sTitle').value = s ? s.title : '';
+    $('sDesc').value = s ? (s.desc || '') : '';
+    $('sSec').value = s ? s.seconds : 5;
+    $('errScene').textContent = '';
+    show('scene');
+  }
+  function saveScene(){
+    var title = $('sTitle').value.trim();
+    var desc = $('sDesc').value.trim();
+    var sec = parseInt($('sSec').value, 10);
+    if(!title){
+      $('errScene').textContent = 'Sahne başlığı gerekli.';
+      $('sTitle').focus();
+      return;
+    }
+    if(!sec || sec < 1){ sec = 1; }
+    if(sec > 3600){ sec = 3600; }
+    var editing = state.editingScene;
+    updateProject(state.currentId, function(p){
+      if(editing){
+        p.scenes.forEach(function(s){
+          if(s.id === editing){ s.title = title; s.desc = desc; s.seconds = sec; }
+        });
+      }else{
+        p.scenes.push({ id: uid(), title: title, desc: desc, seconds: sec });
+      }
+    });
+    state.editingScene = null;
+    toast('Sahne kaydedildi');
+    openProject(state.currentId);
+  }
+
   function deleteProject(){
     if(!state.currentId) return;
-    if(!confirm('Bu proje silinsin mi? Bu işlem geri alınamaz.')) return;
+    if(!confirm('Bu proje ve tüm sahneleri silinsin mi? Bu işlem geri alınamaz.')) return;
     var list = load().filter(function(x){ return x.id !== state.currentId; });
     save(list); state.currentId = null;
     renderList(); show('home'); toast('Proje silindi');
   }
 
+  /* ---------- Olaylar ---------- */
   $('btnNew').addEventListener('click', openCreate);
   $('btnCancel').addEventListener('click', function(){ show('home'); });
   $('btnSave').addEventListener('click', createProject);
   $('btnBack').addEventListener('click', function(){ renderList(); show('home'); });
   $('btnDelete').addEventListener('click', deleteProject);
+  $('btnAddScene').addEventListener('click', function(){ openSceneForm(null); });
+  $('btnSceneSave').addEventListener('click', saveScene);
+  $('btnSceneCancel').addEventListener('click', function(){ openProject(state.currentId); });
   $('fDur').addEventListener('input', function(){ $('durVal').textContent = fmtDur(parseInt(this.value,10)); });
   $('fmts').addEventListener('click', function(e){
     var b = e.target.closest ? e.target.closest('.fmt') : null;
     if(b) setFormat(b.getAttribute('data-fmt'));
   });
   $('fName').addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); createProject(); } });
+  $('sTitle').addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); saveScene(); } });
 
   renderList();
   show('home');
